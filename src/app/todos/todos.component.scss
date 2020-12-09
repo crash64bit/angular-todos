@@ -9,9 +9,10 @@
 
         &-item {
             display: flex;
-            padding-top: 10px;
-            padding-bottom: 1px;
+            padding-top: 5px;
+            padding-bottom: 5px;
             align-items: center;
+            position: relative;
 
             svg {
                 width: 1.5em;
@@ -32,6 +33,22 @@
             .fa-square {
                 display: block;
             }
+
+        }
+
+        &-edit {
+            position: absolute;
+            width: 100%;
+            font-size: 16px;
+            box-sizing: border-box;
+            padding: 5px;
+            line-height: 1.2;
+            display: none;
+        }
+        
+        &-title {
+            margin-right: auto;
+            padding-right: 10px;
         }
 
         &-completed {
@@ -45,12 +62,16 @@
             .fa-square {
                 display: none;
             }
-            
         }
-        
-        &-title {
-            margin-right: auto;
-            padding-right: 10px;
+
+        &-edited {
+            .todo-edit {
+                display: block;
+            }
+
+            button {
+                visibility: hidden;
+            }
         }
     }
 }

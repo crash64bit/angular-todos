@@ -9,7 +9,8 @@ export class TodosComponent implements OnInit {
 
   todos: {
     title: string,
-    completed: boolean
+    completed: boolean,
+    edited: boolean
   }[];
 
   constructor() { }
@@ -34,13 +35,41 @@ export class TodosComponent implements OnInit {
     this.save();
   }
 
+  private edit(id: number) {
+    console.log(id);
+    this.todos[id].edited = !this.todos[id].edited;
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      const input = document.getElementById('edit-' + id);
+      input.focus();
+    },0); 
+  }
+
+  private saveEdit(id: number, title: string) {
+    console.log(id, title);
+    if (title == '') {
+      this.remove(id);
+    }
+    else {
+      this.todos[id].title = title;
+      this.edit(id);
+      this.save();
+    }
+  }
+
+  private cancelEdit(id: number) {
+    if (this.todos[id] && this.todos[id].edited) {
+      this.todos[id].edited = false;
+    }
+  }
+
   public add(value: string) {
     let todo = {
       title: value,
-      completed: false
+      completed: false,
+      edited: false
     }
 
-    this.todos.push(todo);  
+    this.todos.push(todo);
 
     this.save();
   }
