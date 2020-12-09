@@ -1,0 +1,56 @@
+.todos {
+    .todo {
+        &-list {
+            font-size: 16px;
+            padding: 0;
+            margin-bottom: 2em;
+            text-align: left;
+        }
+
+        &-item {
+            display: flex;
+            padding-top: 10px;
+            padding-bottom: 1px;
+            align-items: center;
+
+            svg {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+            button {
+                display: flex;
+                border: none;
+                background: none;
+                outline: none;
+                padding: 4px;
+            }
+            
+            .fa-check-square {
+                display: none;
+            }
+            .fa-square {
+                display: block;
+            }
+        }
+
+        &-done {
+            .todo-title {
+                text-decoration: line-through;
+            }
+
+            .fa-check-square {
+                display: block;
+            }
+            .fa-square {
+                display: none;
+            }
+            
+        }
+        
+        &-title {
+            margin-right: auto;
+            padding-right: 10px;
+        }
+    }
+}
