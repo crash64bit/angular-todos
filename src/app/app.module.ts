@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
 import { TodosComponent } from './todos/todos.component';
+import { TodoCountComponent } from './todo-count/todo-count.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroComponent,
-    TodosComponent
+    TodosComponent,
+    TodoCountComponent
   ],
   imports: [
     BrowserModule,

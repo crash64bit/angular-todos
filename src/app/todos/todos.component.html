@@ -24,5 +24,7 @@
 
         <label for="input">Add Todo</label>&nbsp;
         <input #input type="text" (change)="add(input.value); input.value=''">        
+
+        <app-todo-count [todos]="todos"></app-todo-count>
     </div>
 </div>
