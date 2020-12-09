@@ -9,7 +9,7 @@ export class TodosComponent implements OnInit {
 
   todos: {
     title: string,
-    done: boolean
+    completed: boolean
   }[];
 
   constructor() { }
@@ -37,7 +37,7 @@ export class TodosComponent implements OnInit {
   public add(value: string) {
     let todo = {
       title: value,
-      done: false
+      completed: false
     }
 
     this.todos.push(todo);  
@@ -45,8 +45,8 @@ export class TodosComponent implements OnInit {
     this.save();
   }
 
-  private done(id: number) {
-    this.todos[id].done = !this.todos[id].done;
+  private completed(id: number) {
+    this.todos[id].completed = !this.todos[id].completed;
 
     this.save();
   }
