@@ -103,4 +103,19 @@
             }
         }
     }
+
+    .clear-completed {
+        button {
+            border: 1px solid lightgray;
+            background-color: #fff;
+            padding: 3px 5px;
+            margin: 0 2px;
+            border-radius: 3px;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
 }

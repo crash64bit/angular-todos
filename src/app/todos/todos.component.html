@@ -36,5 +36,9 @@
             <button (click)="filter('active')" [ngClass]="{ 'active': activeFilter == 'active'}">Active</button>
             <button (click)="filter('completed')" [ngClass]="{ 'active': activeFilter == 'completed'}">Completed</button>
         </div>
+
+        <div class="clear-completed">
+            <button [ngClass]="{ 'active': (todos.length - count > 0) }" (click)="clearCompleted()">Clear completed</button>
+        </div>
     </div>
 </div>

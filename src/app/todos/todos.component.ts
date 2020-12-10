@@ -123,4 +123,10 @@ export class TodosComponent implements OnInit {
 
     return this.todos;
   }
+
+  public clearCompleted() {
+    this.todos = this.todos.filter(t => !t.completed);
+
+    this.save();
+  }
 }
