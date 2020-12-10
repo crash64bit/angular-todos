@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodosComponent implements OnInit {
 
+  activeFilter: string = 'all';
+
   todos: {
     title: string,
     completed: boolean,
@@ -104,5 +106,21 @@ export class TodosComponent implements OnInit {
     this.todos.forEach(t => t.completed =  complete);
 
     this.save();
+  }
+
+  public filter(filter: string) {
+    this.activeFilter = filter;
+  }
+
+  public filterTodo() {
+
+    if (this.activeFilter == 'completed') {
+      return this.todos.filter(t => t.completed)
+    }
+    else if(this.activeFilter == 'active') {
+      return this.todos.filter(t => !t.completed)
+    }
+
+    return this.todos;
   }
 }

@@ -87,4 +87,20 @@
             color: black;
         }
     }
+
+    .filter {
+        padding: 10px 0;
+
+        button {
+            border: 1px solid lightgray;
+            background-color: #fff;
+            padding: 3px 5px;
+            margin: 0 2px;
+            border-radius: 3px;
+
+            &.active {
+                border-color: black;
+            }
+        }
+    }
 }
