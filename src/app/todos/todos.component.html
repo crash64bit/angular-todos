@@ -1,5 +1,9 @@
 <div class="todos">
     <div class="container">
+        
+        <label for="input">Add Todo</label>&nbsp;
+        <input #input type="text" (change)="add(input.value); input.value=''">  
+
         <ul class="todo-list">
             <li *ngFor="let item of todos; let i = index" [ngClass]="{'todo-completed' : item.completed, 'todo-edited':  item.edited}" class="todo-item">
                 <button class="button" (click)="completed(i)" type="button" aria-label="Completed">
@@ -20,10 +24,6 @@
                 <input class="todo-edit" #editTodo type="text" value="{{item.title}}" (change)="saveEdit(i, editTodo.value)" (blur)="cancelEdit(i)">
             </li>
         </ul>
-        
-
-        <label for="input">Add Todo</label>&nbsp;
-        <input #input type="text" (change)="add(input.value); input.value=''">        
 
         <app-todo-count [todos]="todos"></app-todo-count>
     </div>
