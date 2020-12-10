@@ -35,13 +35,13 @@ export class TodosComponent implements OnInit {
     this.save();
   }
 
-  private edit(id: number) {
-    console.log(id);
+  private edit(id: number, input?: HTMLInputElement) {
     this.todos[id].edited = !this.todos[id].edited;
-    setTimeout(()=>{ // this will make the execution after the above boolean has changed
-      const input = document.getElementById('edit-' + id);
-      input.focus();
-    },0); 
+    if (input) {
+      setTimeout(()=>{ // this will make the execution after the above boolean has changed
+        input.focus();
+      },0); 
+    }
   }
 
   private saveEdit(id: number, title: string) {
@@ -78,6 +78,10 @@ export class TodosComponent implements OnInit {
     this.todos[id].completed = !this.todos[id].completed;
 
     this.save();
+  }
+
+  public log(msg: string) {
+    console.log(msg);
   }
 
 }
