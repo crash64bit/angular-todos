@@ -1,7 +1,7 @@
 <div class="todo-count">
-    <span>{{countTodos()}}</span>
+    <span>{{count}}</span>
     &nbsp;
-    <span [ngPlural]="countTodos()">
+    <span [ngPlural]="count">
         <ng-template ngPluralCase="=0">Items left</ng-template>
         <ng-template ngPluralCase="=1">Item left</ng-template>
         <ng-template ngPluralCase="other">Items left</ng-template>

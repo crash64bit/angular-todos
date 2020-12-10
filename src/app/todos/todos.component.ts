@@ -13,6 +13,8 @@ export class TodosComponent implements OnInit {
     edited: boolean
   }[];
 
+  count: number;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -21,16 +23,20 @@ export class TodosComponent implements OnInit {
 
   private load() {
     this.todos = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : [];
+
+    this.updateCount();
   }
 
   private save() {
     localStorage.setItem("todos", JSON.stringify(this.todos));
+
+    this.updateCount();
   }
 
   private remove(id: number) {
     if (id !== -1) {
         this.todos.splice(id, 1);
-    } 
+    }
 
     this.save();
   }
@@ -42,6 +48,10 @@ export class TodosComponent implements OnInit {
         input.focus();
       },0); 
     }
+  }
+
+  private updateCount() {
+    this.count = this.todos.filter(t => !t.completed).length;
   }
 
   private saveEdit(id: number, title: string) {
@@ -84,4 +94,15 @@ export class TodosComponent implements OnInit {
     console.log(msg);
   }
 
+  public toggleAll() {
+    // let count = this.todos.filter(t => !t.completed).length;
+    let complete = true;
+
+    if (this.count == 0) {
+      complete = false;
+    }
+    this.todos.forEach(t => t.completed =  complete);
+
+    this.save();
+  }
 }

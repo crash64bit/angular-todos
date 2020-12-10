@@ -74,4 +74,17 @@
             }
         }
     }
+
+    .todo-toglle-all {
+        display: none;
+        color: grey;
+
+        &.active {
+            display: block;
+        }
+
+        &.checked {
+            color: black;
+        }
+    }
 }
