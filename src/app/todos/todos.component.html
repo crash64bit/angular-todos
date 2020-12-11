@@ -27,7 +27,7 @@
 
         <app-todo-count [count]="count"></app-todo-count>
 
-        <button class="todo-toglle-all" (click)="toggleAll()" [ngClass]="{ 'active': todos.length > 0, 'checked': todos.length - count }">
+        <button class="todo-toglle-all" (click)="toggleAll()" [ngClass]="{ 'active': todos.length > 0, 'checked': count === 0 }">
             All
         </button>
 
