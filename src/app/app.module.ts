@@ -4,19 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
-import { TodosComponent } from './todos/todos.component';
-import { TodoCountComponent } from './todo-count/todo-count.component';
+import { TodosModule } from './todos/todos.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroComponent,
-    TodosComponent,
-    TodoCountComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TodosModule
   ],
   providers: [],
   bootstrap: [AppComponent]

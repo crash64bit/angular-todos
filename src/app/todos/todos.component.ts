@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-export class Todo {
-  title: string;
-  completed: boolean;
-  edited: boolean;
-}
+import { Todo } from './models/todo.model';
+import { TodosService } from './services/todos.service';
 
 @Component({
   selector: 'app-todos',
@@ -16,23 +12,29 @@ export class TodosComponent implements OnInit {
   activeFilter = 'all';
 
   todos: Todo[];
+  filteredTodos: Todo[];
 
   count: number;
 
-  constructor() { }
+  service: TodosService;
+
+  constructor() {
+    this.service = new TodosService();
+  }
 
   ngOnInit(): void {
     this.load();
   }
 
   load(): void {
-    this.todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+    this.todos = this.service.load();
+    this.filteredTodos = this.filterTodo();
 
     this.updateCount();
   }
 
   save(): void {
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.service.save();
 
     this.updateCount();
   }
@@ -41,6 +43,8 @@ export class TodosComponent implements OnInit {
     if (id !== -1) {
         this.todos.splice(id, 1);
     }
+
+    this.filteredTodos = this.filterTodo();
 
     this.save();
   }
@@ -123,7 +127,8 @@ export class TodosComponent implements OnInit {
       return this.todos.filter(t => !t.completed);
     }
 
-    return this.todos;
+    // return this.todos;
+    return Object.assign([], this.todos);
   }
 
   clearCompleted(): void {
