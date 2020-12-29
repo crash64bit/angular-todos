@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Todo } from './models/todo.model';
+import { TodosService } from './services/todos.service';
 
 @Component({
   selector: 'app-todos',
@@ -7,58 +9,62 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodosComponent implements OnInit {
 
-  activeFilter: string = 'all';
+  activeFilter = 'all';
 
-  todos: {
-    title: string,
-    completed: boolean,
-    edited: boolean
-  }[];
+  todos: Todo[];
+  filteredTodos: Todo[];
 
   count: number;
 
-  constructor() { }
+  service: TodosService;
+
+  constructor() {
+    this.service = new TodosService();
+  }
 
   ngOnInit(): void {
     this.load();
   }
 
-  private load() {
-    this.todos = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : [];
+  load(): void {
+    this.todos = this.service.load();
+    this.filteredTodos = this.filterTodo();
 
     this.updateCount();
   }
 
-  private save() {
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+  save(): void {
+    this.service.save();
 
     this.updateCount();
   }
 
-  private remove(id: number) {
+  remove(id: number): void {
     if (id !== -1) {
         this.todos.splice(id, 1);
     }
 
+    this.filteredTodos = this.filterTodo();
+
     this.save();
   }
 
-  private edit(id: number, input?: HTMLInputElement) {
+  edit(id: number, input?: HTMLInputElement): void {
     this.todos[id].edited = !this.todos[id].edited;
     if (input) {
-      setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      setTimeout(() => { // this will make the execution after the above boolean has changed
         input.focus();
-      },0); 
+      }, 0);
     }
   }
 
-  private updateCount() {
+  updateCount(): void {
     this.count = this.todos.filter(t => !t.completed).length;
   }
 
-  private saveEdit(id: number, title: string) {
+  saveEdit(id: number, title: string): void {
     console.log(id, title);
-    if (title == '') {
+    if (title === '') {
       this.remove(id);
     }
     else {
@@ -68,39 +74,39 @@ export class TodosComponent implements OnInit {
     }
   }
 
-  private cancelEdit(id: number) {
+  cancelEdit(id: number): void {
     if (this.todos[id] && this.todos[id].edited) {
       this.todos[id].edited = false;
     }
   }
 
-  public add(value: string) {
-    let todo = {
+  add(value: string): void {
+    const todo = {
       title: value,
       completed: false,
       edited: false
-    }
+    };
 
     this.todos.push(todo);
 
     this.save();
   }
 
-  private completed(id: number) {
+  completed(id: number): void {
     this.todos[id].completed = !this.todos[id].completed;
 
     this.save();
   }
 
-  public log(msg: string) {
+  log(msg: string): void {
     console.log(msg);
   }
 
-  public toggleAll() {
+  toggleAll(): void {
     // let count = this.todos.filter(t => !t.completed).length;
     let complete = true;
 
-    if (this.count == 0) {
+    if (this.count === 0) {
       complete = false;
     }
     this.todos.forEach(t => t.completed =  complete);
@@ -108,23 +114,24 @@ export class TodosComponent implements OnInit {
     this.save();
   }
 
-  public filter(filter: string) {
+  filter(filter: string): void {
     this.activeFilter = filter;
   }
 
-  public filterTodo() {
+  filterTodo(): Todo[] {
 
-    if (this.activeFilter == 'completed') {
-      return this.todos.filter(t => t.completed)
+    if (this.activeFilter === 'completed') {
+      return this.todos.filter(t => t.completed);
     }
-    else if(this.activeFilter == 'active') {
-      return this.todos.filter(t => !t.completed)
+    else if (this.activeFilter === 'active') {
+      return this.todos.filter(t => !t.completed);
     }
 
-    return this.todos;
+    // return this.todos;
+    return Object.assign([], this.todos);
   }
 
-  public clearCompleted() {
+  clearCompleted(): void {
     this.todos = this.todos.filter(t => !t.completed);
 
     this.save();
