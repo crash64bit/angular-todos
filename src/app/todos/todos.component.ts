@@ -11,30 +11,30 @@ export class TodosComponent implements OnInit {
 
   activeFilter = 'all';
 
-  todos: Todo[];
-  filteredTodos: Todo[];
+  todos: Todo[] = [];
+  filteredTodos: Todo[] = [];
 
   count: number;
 
-  service: TodosService;
-
-  constructor() {
-    this.service = new TodosService();
-  }
+  constructor(
+    private readonly todoService: TodosService
+  ) {}
 
   ngOnInit(): void {
     this.load();
   }
 
   load(): void {
-    this.todos = this.service.load();
+    this.todos = this.todoService.load();
     this.filteredTodos = this.filterTodo();
 
     this.updateCount();
   }
 
   save(): void {
-    this.service.save();
+    this.todoService.save();
+
+    this.filteredTodos = this.filterTodo();
 
     this.updateCount();
   }
@@ -88,6 +88,7 @@ export class TodosComponent implements OnInit {
     };
 
     this.todos.push(todo);
+    this.filteredTodos = this.filterTodo();
 
     this.save();
   }
@@ -116,6 +117,7 @@ export class TodosComponent implements OnInit {
 
   filter(filter: string): void {
     this.activeFilter = filter;
+    this.filteredTodos = this.filterTodo();
   }
 
   filterTodo(): Todo[] {
@@ -133,6 +135,7 @@ export class TodosComponent implements OnInit {
 
   clearCompleted(): void {
     this.todos = this.todos.filter(t => !t.completed);
+    this.filteredTodos = this.filterTodo();
 
     this.save();
   }
