@@ -5,8 +5,7 @@ import { Todo } from '../models/todo.model';
   providedIn: 'root'
 })
 export class TodosService {
-  data: undefined | number = undefined;
-  todos: Todo[];
+  todos: Todo[] = [];
 
   load(): Todo[] {
     this.todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
